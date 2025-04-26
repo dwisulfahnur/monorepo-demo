@@ -3,7 +3,7 @@ import path from 'path'
 
 
 if (!admin.apps.length) {
-  const serviceAccountPath = path.resolve(__dirname, '../core/secrets/firebase.json');
+  const serviceAccountPath = path.resolve(__dirname, '../config/secrets/firebase.json');
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccountPath),
   });
