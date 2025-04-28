@@ -1,12 +1,6 @@
-export interface IUser {
-  uid: string;
-  name: string;
-  email: string;
-  phone?: string;
+import { z } from 'zod'
 
-  totalAverageWeightRatings?: number;
-  numberOfRents?: number;
-  recentlyActive?: number;
-
-  createdAt: FirebaseFirestore.Timestamp;
-}
+export const updateUserSchema = z.object({
+  totalAverageWeightRatings: z.number(),
+  numberOfRents: z.number(),
+})
