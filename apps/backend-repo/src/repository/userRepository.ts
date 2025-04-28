@@ -1,28 +1,26 @@
 import { db } from "../config/firebaseConfig";
-import { IUser } from "../entities/userEntity";
-
+import { IUser } from "@packages/shared/types/user"
 
 const userCollection = db.collection("USERS");
 
-export async function getUser(uid: string): Promise<IUser | null> {
-  const doc = await userCollection.doc("userId").get();
+async function getUser(uid: string): Promise<IUser | null> {
+  const doc = await userCollection.doc(uid).get();
   if (!doc.exists) {
     return null;
   }
-  return {
-    uid: doc.id,
-    ...doc.data(),
-  } as IUser;
+  return doc.data() as IUser;
 }
 
-export async function updateUser(uid: string, data: Partial<IUser>): Promise<IUser | null> {
-  await userCollection.doc(uid).update(data);
-  const updatedDoc = await userCollection.doc(uid).get();
-  if (!updatedDoc.exists) {
-    return null;
-  }
-  return {
-    uid: updatedDoc.id,
-    ...updatedDoc.data(),
-  } as IUser;
+async function updateOrCreateUser(uid: string, data: IUser): Promise<IUser | null> {
+  const docRef = userCollection.doc(uid);
+  const { recentlyActive, ...body } = data
+  await docRef.set({
+    ...body,
+    recentlyActive: recentlyActive?.seconds
+  }, { merge: true });
+  const updatedDoc = await docRef.get();
+  return updatedDoc.data() as IUser;
 }
+
+const userRepository = { getUser, updateOrCreateUser }
+export default userRepository;
