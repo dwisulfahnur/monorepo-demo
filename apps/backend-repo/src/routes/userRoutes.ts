@@ -3,7 +3,7 @@ import { getUserHandler, updateUserHandler } from "../controller/api";
 
 const userRoutes = Router();
 
-userRoutes.get('/update-user-data', getUserHandler);
-userRoutes.put('/fetch-user-data', updateUserHandler);
+userRoutes.get('/fetch-user-data', getUserHandler);
+userRoutes.put('/update-user-data', updateUserHandler);
 
 export default userRoutes;
