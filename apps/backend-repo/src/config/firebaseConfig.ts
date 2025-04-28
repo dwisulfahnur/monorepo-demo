@@ -12,4 +12,8 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 const auth = admin.auth();
 
+if (process.env.FIRESTORE_EMULATOR_HOST) {
+  db.settings({host: process.env.FIRESTORE_EMULATOR_HOST})
+}
+
 export { db, auth }
