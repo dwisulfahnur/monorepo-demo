@@ -6,8 +6,8 @@ async function fetchUserData(): Promise<IUser> {
   return data
 }
 
-async function updateUserData(payload: IUser): Promise<IUser> {
-  const { data } = await http.put('/update-user-data', payload)
+async function updateUserData(payload: Partial<IUser>): Promise<IUser> {
+  const { data } = await http.patch('/update-user-data', payload)
   return data
 }
 
