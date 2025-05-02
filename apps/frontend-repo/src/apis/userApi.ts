@@ -6,7 +6,7 @@ async function fetchUserData(): Promise<IUser> {
   return data
 }
 
-async function updateUserData(payload: Partial<IUser>): Promise<IUser> {
+async function updateUserData(payload: Pick<IUser, 'totalAverageWeightRatings' | 'numberOfRents'>): Promise<IUser> {
   const { data } = await http.patch('/update-user-data', payload)
   return data
 }
