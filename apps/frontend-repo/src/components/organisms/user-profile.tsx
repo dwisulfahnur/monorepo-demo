@@ -39,7 +39,7 @@ export function UserProfile({ user }: { user: User }) {
   }
 
   useEffect(() => {
-    if (signOut.isSuccess) router.replace('/signin')
+    if (signOut.isSuccess) router.push('/signin')
   }, [signOut.isSuccess])
 
   return (
