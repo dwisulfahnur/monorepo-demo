@@ -1,84 +1,69 @@
-# Turborepo starter
+# Demonstration of Monorepo using MonoRepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+This repository is demonstrating monorepo using TurboRepo with twice of apps, backend and frontend.
 
-## Using this example
 
-Run the following command:
+## Prerequisites
 
-```sh
-npx create-turbo@latest
-```
+- Node.js v20 or higher
+- npm v10.5.2 or higher
+- Firebase CLI
+- Firebase Emulator Suite
 
-## What's inside?
 
-This Turborepo includes the following packages/apps:
+## Getting Started
 
-### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+### Install firebase tools if its not installed yet
 
 ```
-cd my-turborepo
-pnpm build
+npm i -g firebase-tools
 ```
 
-### Develop
+### Clone the project
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Git clone the project, then open the project directory
 
 ```
-cd my-turborepo
-npx turbo login
+git clone git@github.com:dwisulfahnur/monorepo-demo.git
+cd monorepo-demo
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Install the dependencies
 
 ```
-npx turbo link
+npm install
 ```
 
-## Useful Links
+### Configure the .env file
 
-Learn more about the power of Turborepo:
+Configure the environment variables file by using the env.example provided
 
-- [Tasks](https://turborepo.com/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turborepo.com/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+```
+# backend
+cp apps/backend-repo/env.example apps/backend-repo/.env
+
+# frontend
+cp apps/frontend-repo/env.example apps/frontend-repo/.env
+```
+
+
+### Run the project
+
+On the root of project directory, run the firebase emulators.
+
+```
+firebase emulators:start
+```
+
+then create new terminal session, open the project directory and run the project
+
+```
+npm run dev
+```
+
+The app will running on the following urls:
+
+Frontend: http://localhost:3000
+Backend: http://localhost:8000
+Firebase Emulator UI: http://localhost:4000
