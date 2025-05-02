@@ -1,5 +1,6 @@
 import { db } from "../config/firebaseConfig";
 import { IUser } from "@packages/shared/types/user"
+import { Timestamp } from "firebase/firestore";
 
 const userCollection = db.collection("USERS");
 
@@ -11,13 +12,27 @@ async function getUser(uid: string): Promise<IUser | null> {
   return doc.data() as IUser;
 }
 
-async function updateOrCreateUser(uid: string, data: IUser): Promise<IUser | null> {
+async function updateOrCreateUser(uid: string, data: Partial<IUser>): Promise<IUser | null> {
   const docRef = userCollection.doc(uid);
-  const { recentlyActive, ...body } = data
-  await docRef.set({
-    ...body,
-    recentlyActive: recentlyActive?.seconds
-  }, { merge: true });
+
+  // Get existing user data
+  const existingUser = await getUser(uid);
+
+  // Prepare update data
+  const updateData: Partial<IUser> = {
+    ...existingUser,
+    ...data,
+    recentlyActive: Timestamp.now().seconds
+  };
+
+  // Remove undefined values
+  Object.keys(updateData).forEach(key => {
+    if (updateData[key as keyof IUser] === undefined) {
+      delete updateData[key as keyof IUser];
+    }
+  });
+
+  await docRef.set(updateData, { merge: true });
   const updatedDoc = await docRef.get();
   return updatedDoc.data() as IUser;
 }

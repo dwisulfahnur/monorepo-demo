@@ -2,6 +2,7 @@ import { Timestamp } from "firebase/firestore";
 import { Request, Response } from 'express';
 import { updateUserSchema } from "../entities/userEntity";
 import userRepository from '../repository/userRepository';
+import { z } from 'zod';
 
 export const getUserHandler = async (req: Request, res: Response) => {
   if (!req.user) {
@@ -15,14 +16,14 @@ export const getUserHandler = async (req: Request, res: Response) => {
     res.status(200).json(user);
     return
   }
-  res.status(404).json({ message: 'Not Found' })
+  res.status(200).json(null)
 }
 
 export const updateUserHandler = async (req: Request, res: Response) => {
   const parsed = updateUserSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
-      error: parsed.error.errors.map(err => ({
+      error: (parsed.error.errors as z.ZodIssue[]).map((err) => ({
         field: err.path.join('.'),
         message: err.message,
       })),
@@ -37,7 +38,7 @@ export const updateUserHandler = async (req: Request, res: Response) => {
   // Update or Create user collection
   const user = await userRepository.updateOrCreateUser(req.user.uid, {
     ...parsed.data,
-    "recentlyActive": Timestamp.now(),
+    "recentlyActive": Timestamp.now().seconds,
   })
   res.status(200).json(user);
 }
