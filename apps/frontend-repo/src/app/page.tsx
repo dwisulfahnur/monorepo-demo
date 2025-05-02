@@ -19,7 +19,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user_) => {
+    const unSubscribe = onAuthStateChanged(auth, (user_) => {
       if (user_) {
         store.dispatch(setUser(user_))
       } else {
@@ -27,6 +27,7 @@ export default function Home() {
       }
       setIsLoading(false)
     })
+    return () => unSubscribe()
   }, [])
 
   const cardVariants = {
