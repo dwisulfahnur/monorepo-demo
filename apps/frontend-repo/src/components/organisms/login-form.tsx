@@ -118,23 +118,6 @@ export function LoginForm() {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Grid container sx={{ mt: 2, mb: 2 }}>
-            <Grid sx={{ display: "flex", alignItems: "center" }}>
-              <Link
-                href="/forgot-password"
-                style={{
-                  textDecoration: "none",
-                  color: isDark ? "#EC4899" : "#6366F1",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                Forgot password?
-              </Link>
-            </Grid>
-          </Grid>
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
           <Button
             fullWidth
             type="submit"
@@ -184,27 +167,6 @@ export function LoginForm() {
             onClick={handleGoogleLogin}
             isLoading={googleLogin.isLoading}
           />
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
-          <Grid container justifyContent="center" sx={{ mt: 3 }}>
-            <Grid>
-              <Text>
-                {"Don't have an account? "}
-                <Link
-                  href="/register"
-                  style={{
-                    textDecoration: "none",
-                    color: isDark ? "#EC4899" : "#6366F1",
-                    fontWeight: 600,
-                    transition: "color 0.3s ease",
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </Text>
-            </Grid>
-          </Grid>
         </motion.div>
       </motion.div>
     </Box>
