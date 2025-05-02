@@ -19,6 +19,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction): 
     req.user = decodedToken;
     next();
   } catch (error) {
+    console.error(error)
     res.status(403).send(error);
   }
 }
