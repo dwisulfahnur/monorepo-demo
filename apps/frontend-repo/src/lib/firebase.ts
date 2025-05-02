@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, connectAuthEmulator } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -14,6 +14,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+if (!!process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST) {
+  connectAuthEmulator(auth, process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST, { disableWarnings: true })
+}
+
+export { auth, googleProvider };
 export default app;
