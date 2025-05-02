@@ -62,8 +62,8 @@ then create new terminal session, open the project directory and run the project
 npm run dev
 ```
 
-The app will running on the following urls:
+### The app will running on the following urls:
 
-Frontend: http://localhost:3000
-Backend: http://localhost:8000
-Firebase Emulator UI: http://localhost:4000
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+- Firebase Emulator UI: http://localhost:4000
