@@ -22,10 +22,10 @@ export default function Home() {
     const unSubscribe = onAuthStateChanged(auth, (user_) => {
       if (user_) {
         store.dispatch(setUser(user_))
+        setIsLoading(false)
       } else {
         router.replace('/signin')
       }
-      setIsLoading(false)
     })
     return () => unSubscribe()
   }, [])
@@ -54,7 +54,7 @@ export default function Home() {
         <motion.div variants={cardVariants} initial="hidden" animate="visible">
           <UserProfile user={user} />
         </motion.div>
-      ) : null}
+      ) : <CircularProgress size={40} />}
     </HomeTemplate>
   );
 }
