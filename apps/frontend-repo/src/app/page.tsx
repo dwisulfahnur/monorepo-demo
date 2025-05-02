@@ -12,6 +12,7 @@ import { setUser } from "@/store/slices/authSlice";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress"
 import HomeTemplate from "@/components/templates/home-template";
+import UserActivityMonitor from "@/components/organisms/user-activity-monitor";
 
 export default function Home() {
   const router = useRouter()
@@ -53,6 +54,8 @@ export default function Home() {
       {user ? (
         <motion.div variants={cardVariants} initial="hidden" animate="visible">
           <UserProfile user={user} />
+          {/* Activate activity-monitor if the user is exists */}
+          <UserActivityMonitor />
         </motion.div>
       ) : <CircularProgress size={40} />}
     </HomeTemplate>
